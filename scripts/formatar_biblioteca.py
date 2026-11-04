@@ -1,10 +1,12 @@
-
 import json
 from pathlib import Path
 
 
-origem = Path("biblioteca.json")
-destino = Path("biblioteca_legivel.json")
+PASTA_PROJETO = Path(__file__).resolve().parent.parent
+PASTA_DADOS = PASTA_PROJETO / "dados"
+
+origem = PASTA_DADOS / "biblioteca.json"
+destino = PASTA_DADOS / "biblioteca_legivel.json"
 
 # Primeira decodificação: remove a camada externa de JSON.
 texto = origem.read_text(encoding="utf-8")
@@ -36,6 +38,9 @@ def corrigir_texto(valor):
 
 
 dados = corrigir_texto(dados)
+
+# Garante que a pasta de destino exista.
+PASTA_DADOS.mkdir(parents=True, exist_ok=True)
 
 # Salva com indentação e acentuação preservada.
 destino.write_text(

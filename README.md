@@ -6,12 +6,18 @@ A ideia inicial é investigar maneiras de consultar e apresentar essas informaç
 
 Este repositório reúne, por enquanto, scripts auxiliares usados para obter e preparar dados do catálogo.
 
+## Estrutura do projeto
+
+- **`scripts/`** — programas usados para coletar e preparar os dados.
+- **`dados/`** — arquivos produzidos pelos scripts. O conteúdo dessa pasta não é versionado.
+- **`README.md`** — documentação e instruções do projeto.
+
 ## Scripts disponíveis
 
-- **`baixar_siga.py`** — acessa o catálogo SIGA, seleciona a camada **Biblioteca** (identificada no catálogo pelo ID 90) e solicita o arquivo GeoJSON.
-- **`formatar_biblioteca.py`** — decodifica e formata o arquivo obtido, além de tentar corrigir problemas comuns de codificação de caracteres.
+- **`scripts/baixar_siga.py`** — acessa o catálogo SIGA, seleciona a camada **Biblioteca** (identificada no catálogo pelo ID 90) e solicita o arquivo GeoJSON.
+- **`scripts/formatar_biblioteca.py`** — decodifica e formata o arquivo obtido, além de tentar corrigir problemas comuns de codificação de caracteres.
 
-O fluxo atual produz dois arquivos locais:
+O fluxo atual produz dois arquivos locais na pasta `dados/`:
 
 - `biblioteca.json` — resposta original recebida do SIGA.
 - `biblioteca_legivel.json` — versão decodificada e formatada.
@@ -48,14 +54,15 @@ python3 -m pip install requests
 Execute primeiro o script de coleta e, em seguida, o de formatação:
 
 ```bash
-python3 baixar_siga.py
-python3 formatar_biblioteca.py
+python3 scripts/baixar_siga.py
+python3 scripts/formatar_biblioteca.py
 ```
 
-Ao final, os arquivos JSON serão criados na pasta do projeto.
+Ao final, os arquivos JSON serão criados na pasta `dados/`.
 
 ## Observações
 
+- Os scripts localizam a pasta do projeto a partir de seus próprios caminhos. Assim, podem ser executados a partir de outros diretórios.
 - O script de coleta reproduz o fluxo de requisições atualmente observado no catálogo SIGA. Alterações no site podem exigir ajustes no código.
 - A camada Biblioteca é apenas o primeiro conjunto de dados investigado; não representa uma decisão definitiva sobre o escopo do projeto.
 - Os arquivos JSON são ignorados pelo Git. Além de evitar versionar dados derivados, isso impede que informações de contato presentes nos registros sejam publicadas inadvertidamente.

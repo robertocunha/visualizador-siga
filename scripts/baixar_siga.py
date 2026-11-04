@@ -1,9 +1,11 @@
-
 import requests
 from html.parser import HTMLParser
 from pathlib import Path
 
 URL = "https://siga.santoandre.sp.gov.br/Catalogo"
+
+PASTA_PROJETO = Path(__file__).resolve().parent.parent
+PASTA_DADOS = PASTA_PROJETO / "dados"
 
 
 class HiddenInputParser(HTMLParser):
@@ -92,7 +94,8 @@ with requests.Session() as session:
     # Só salvar se o servidor confirmar que devolveu JSON.
     if "application/json" in content_type.lower():
 
-        destino = Path("biblioteca.json")
+        PASTA_DADOS.mkdir(parents=True, exist_ok=True)
+        destino = PASTA_DADOS / "biblioteca.json"
         destino.write_bytes(arquivo.content)
 
         print("\nArquivo salvo em:")
