@@ -16,6 +16,29 @@ conteudo = json.loads(texto)
 dados = json.loads(conteudo)
 
 
+def corrigir_codificacao(texto):
+
+    bytes_originais = bytearray()
+
+    for caractere in texto:
+        try:
+            bytes_originais.extend(caractere.encode("cp1252"))
+
+        except UnicodeEncodeError:
+            codigo = ord(caractere)
+
+            if 0x80 <= codigo <= 0x9F:
+                bytes_originais.append(codigo)
+            else:
+                return texto
+
+    try:
+        return bytes_originais.decode("utf-8")
+
+    except UnicodeDecodeError:
+        return texto
+
+
 def corrigir_texto(valor):
 
     if isinstance(valor, dict):
@@ -29,10 +52,7 @@ def corrigir_texto(valor):
 
     if isinstance(valor, str):
         if any(marca in valor for marca in ("Ã", "Â", "â")):
-            try:
-                return valor.encode("cp1252").decode("utf-8")
-            except (UnicodeEncodeError, UnicodeDecodeError):
-                pass
+            return corrigir_codificacao(valor)
 
     return valor
 
