@@ -22,22 +22,25 @@ async function carregarBibliotecas() {
 
   container.innerHTML = '';
 
+
   dados.features.forEach(feature => {
     const biblioteca = feature.properties;
 
-    const artigo = document.createElement('article');
+    const detalhes = document.createElement('details');
 
-    const titulo = document.createElement('h2');
-    titulo.textContent = biblioteca.NOME;
-    artigo.appendChild(titulo);
+    const resumo = document.createElement('summary');
+    resumo.textContent = biblioteca.NOME;
 
-    adicionarCampo(artigo, 'Endereço', biblioteca.ENDERECO);
-    adicionarCampo(artigo, 'Bairro', biblioteca.BAIRRO);
-    adicionarCampo(artigo, 'Funcionamento', biblioteca.FUNCIONAMENTO);
-    adicionarCampo(artigo, 'Telefone', biblioteca.TELEFONE);
+    detalhes.appendChild(resumo);
 
-    container.appendChild(artigo);
+    adicionarCampo(detalhes, 'Endereço', biblioteca.ENDERECO);
+    adicionarCampo(detalhes, 'Bairro', biblioteca.BAIRRO);
+    adicionarCampo(detalhes, 'Funcionamento', biblioteca.FUNCIONAMENTO);
+    adicionarCampo(detalhes, 'Telefone', biblioteca.TELEFONE);
+
+    container.appendChild(detalhes);
   });
+
 }
 
 carregarBibliotecas();

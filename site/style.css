@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
 }
@@ -32,19 +31,24 @@ main {
 }
 
 #bibliotecas {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  columns: 260px;
+  column-gap: 20px;
 }
 
-#bibliotecas article {
-  padding: 24px;
+#bibliotecas details {
+  padding: 14px 18px;
+  margin-bottom: 12px;
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  break-inside: avoid;
 }
 
-#bibliotecas article h2 {
-  margin-top: 0;
-  font-size: 1.2rem;
+#bibliotecas summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#bibliotecas details p {
+  margin: 12px 0 0;
 }
