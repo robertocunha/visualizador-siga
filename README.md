@@ -4,11 +4,12 @@ Projeto pessoal e experimental para explorar os dados públicos disponibilizados
 
 A ideia inicial é investigar maneiras de consultar e apresentar essas informações de forma mais acessível. O projeto ainda está em fase exploratória: funcionalidades, arquitetura e tecnologias da aplicação final não estão definidas.
 
-Este repositório reúne, por enquanto, scripts auxiliares usados para obter e preparar dados do catálogo.
+Este repositório reúne, por enquanto, scripts auxiliares usados para obter e preparar dados do catálogo e um protótipo de página para apresentá-los.
 
 ## Estrutura do projeto
 
 - **`scripts/`** — programas usados para coletar e preparar os dados.
+- **`site/`** — protótipo da interface web (HTML, CSS e JavaScript).
 - **`dados/`** — arquivos produzidos pelos scripts. O conteúdo dessa pasta não é versionado.
 - **`README.md`** — documentação e instruções do projeto.
 
@@ -23,6 +24,22 @@ O fluxo atual produz dois arquivos locais na pasta `dados/`:
 - `biblioteca_legivel.json` — versão decodificada e formatada.
 
 Esses arquivos de dados não são versionados neste repositório.
+
+## Protótipo do site
+
+A pasta `site/` contém uma primeira página que lista as bibliotecas municipais em campos retráteis: cada item mostra o nome e, ao ser expandido, revela endereço, bairro, horário de funcionamento e telefone.
+
+- **`site/index.html`** — estrutura da página.
+- **`site/style.css`** — estilos.
+- **`site/script.js`** — carrega `dados/biblioteca_legivel.json` e monta a lista.
+
+O protótipo depende dos arquivos gerados pelos scripts, portanto é preciso executá-los antes (veja abaixo). Como a página usa `fetch` para ler o JSON, ela não funciona aberta diretamente pelo sistema de arquivos; é necessário servi-la por HTTP. A partir da raiz do projeto:
+
+```bash
+python3 -m http.server
+```
+
+Depois, acesse `http://localhost:8000/site/` no navegador.
 
 ## Requisitos
 
@@ -70,4 +87,4 @@ Ao final, os arquivos JSON serão criados na pasta `dados/`.
 
 ## Situação
 
-Em desenvolvimento exploratório. As próximas etapas incluem compreender melhor a estrutura e a atualização dos dados e experimentar formas de apresentá-los em uma aplicação web.
+Em desenvolvimento exploratório. Já existe um protótipo que lista a camada Biblioteca. As próximas etapas incluem compreender melhor a estrutura e a atualização dos dados, decidir como a aplicação obterá os dados e avaliar formas de apresentá-los.
