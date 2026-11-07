@@ -1,0 +1,1212 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Análise do site do SIGA</title><meta name="data-notion-page-icon" content="/icons/microscope_orange.svg"/><link rel="icon" href="https://app.notion.com/icons/microscope_orange.svg"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="41063faa-710c-80fc-a1fa-ce15bf75e8d4" class="page sans" data-notion-page-icon="/icons/microscope_orange.svg"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1630959305606-3123a081dada?ixlib=rb-4.1.0&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 57.91%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon notion-static-icon" src="https://app.notion.com/icons/microscope_orange.svg"/></div><h1 class="page-title" dir="auto">Análise do site do SIGA</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><p id="41063faa-710c-80f3-ad29-d2234c5be5e5" class="" dir="auto">Informações sobre as partes do site do SIGA que julguei mais relevantes até agora. </p><h1 id="41063faa-710c-801e-9497-daab43d10514" class="block-color-orange" data-notion-highlight="orange" dir="auto">A relação entre catálogo e o mapa </h1><p id="41063faa-710c-8073-a8ff-fd30aa376393" class="" dir="auto">A página “Catálogo” é uma tabela com 303 registros. Há como filtrar por tema, camada e responsável. </p><p id="41063faa-710c-8099-baae-f2b93133d4c5" class="" dir="auto">No print abaixo, por exemplo, vemos a tabela exibindo os dez registros do tema “Serviços aos Cidadãos”. </p><figure id="41063faa-710c-8067-8bbc-eda0765ac84f" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image.png"><img style="width:1008px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image.png"/></a></figure><p id="41063faa-710c-80bf-92dc-de63346b7899" class="" dir="auto">Abaixo, como o tema “Serviço aos Cidadãos” e suas camadas aparecem no menu “Temas” do mapa: </p><figure id="41063faa-710c-800b-abac-efdd5e797333" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%201.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%201.png"><img style="width:1008px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%201.png"/></a></figure><p id="41063faa-710c-8031-a043-c344e84582bc" class="" dir="auto">Achei problemático, na página do catálogo, que quando filtramos o resultado por tema as 303 camadas dos outros temas continuam presentes no dropdown do filtro de camadas: <br/></p><figure id="41063faa-710c-8059-8ee6-f76cb5e4d076" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%202.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%202.png"><img style="width:1008px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%202.png"/></a></figure><p id="41063faa-710c-808d-9a74-c78a242a9011" class="" dir="auto">Abaixo, uma tabela dos temas e a quantidade de camadas por tema.</p><table id="41063faa-710c-80f0-937f-f479043163ba" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="41063faa-710c-800d-9be5-caa22087a05a" dir="ltr"><th id="]_@y" class="simple-table-header-color simple-table-header" style="width:239.66666666666666px">Tema</th><th id="uHmP" class="simple-table-header-color simple-table-header" style="width:239.66666666666666px">Nº de Camadas</th></tr></thead><tbody><tr id="41063faa-710c-80f0-a326-d98bfeaa1700" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Aspectos Sócioeconômicos</td><td id="uHmP" class="" style="width:239.66666666666666px">19</td></tr><tr id="41063faa-710c-8099-8fe1-f9800e5050bc" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Assistência Social </td><td id="uHmP" class="" style="width:239.66666666666666px">17</td></tr><tr id="41063faa-710c-80d4-b4a5-fd8b9fe0113d" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Base Para as Camadas</td><td id="uHmP" class="" style="width:239.66666666666666px">05</td></tr><tr id="41063faa-710c-80f4-b275-f3a3999ef77a" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Cadastro Fiscal</td><td id="uHmP" class="" style="width:239.66666666666666px">03</td></tr><tr id="41063faa-710c-8012-ad9a-cd7dab1ba255" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Cartografia Histórica</td><td id="uHmP" class="" style="width:239.66666666666666px">07</td></tr><tr id="41063faa-710c-8012-95c2-cce7efec1389" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Conselhos </td><td id="uHmP" class="" style="width:239.66666666666666px">02</td></tr><tr id="41063faa-710c-8061-8905-c60aa17acf86" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">CRAISA</td><td id="uHmP" class="" style="width:239.66666666666666px">01</td></tr><tr id="41063faa-710c-8050-b1e5-c5553d5dec3a" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Cultura e Lazer</td><td id="uHmP" class="" style="width:239.66666666666666px">13</td></tr><tr id="41063faa-710c-8094-a6bf-f63d2ec3eda9" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Declarações de Utilidade Pública</td><td id="uHmP" class="" style="width:239.66666666666666px">02</td></tr><tr id="41063faa-710c-8011-8367-f9bcb37ea934" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Defesa Civil</td><td id="uHmP" class="" style="width:239.66666666666666px">24</td></tr><tr id="41063faa-710c-805f-b512-d1f35a2cc292" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Desenvolvimento Econômico</td><td id="uHmP" class="" style="width:239.66666666666666px">07</td></tr><tr id="41063faa-710c-8079-8193-d27d603dd539" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Educação</td><td id="uHmP" class="" style="width:239.66666666666666px">15</td></tr><tr id="41063faa-710c-806b-8168-c9c91cc4f293" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Esportes e Práticas Esportivas</td><td id="uHmP" class="" style="width:239.66666666666666px">05</td></tr><tr id="41063faa-710c-8003-889f-dfebc9f0d2a3" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Fiscalização</td><td id="uHmP" class="" style="width:239.66666666666666px">00</td></tr><tr id="41063faa-710c-8004-94b6-e402734e5fd2" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Fundo Social de Solidariedade</td><td id="uHmP" class="" style="width:239.66666666666666px">05</td></tr><tr id="41063faa-710c-801e-9554-d1e252806f7f" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Habitação</td><td id="uHmP" class="" style="width:239.66666666666666px">02</td></tr><tr id="41063faa-710c-80d9-879f-cf473e96bc97" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Infraestrutura Urbana</td><td id="uHmP" class="" style="width:239.66666666666666px">13</td></tr><tr id="41063faa-710c-800c-ba54-f66bd3343e60" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Legislação</td><td id="uHmP" class="" style="width:239.66666666666666px">32</td></tr><tr id="41063faa-710c-80d5-ae37-e14fd43eb343" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Limites</td><td id="uHmP" class="" style="width:239.66666666666666px">09</td></tr><tr id="41063faa-710c-8089-ac2e-e7f88b23ef34" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Meio Ambiente</td><td id="uHmP" class="" style="width:239.66666666666666px">31</td></tr><tr id="41063faa-710c-809e-9a40-fb9819f2e01e" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Mobilidade Urbana</td><td id="uHmP" class="" style="width:239.66666666666666px">24</td></tr><tr id="41063faa-710c-8018-83d7-cf75b49c8e25" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Pessoas com Deficiência</td><td id="uHmP" class="" style="width:239.66666666666666px">05</td></tr><tr id="41063faa-710c-80ab-9f1d-f1907cc6490c" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Planejamento Urbano</td><td id="uHmP" class="" style="width:239.66666666666666px">08</td></tr><tr id="41063faa-710c-8062-8a15-d09fb14352b9" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Saúde</td><td id="uHmP" class="" style="width:239.66666666666666px">14</td></tr><tr id="41063faa-710c-80c9-abce-ca18b79c65f1" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Segurança Pública</td><td id="uHmP" class="" style="width:239.66666666666666px">18</td></tr><tr id="41063faa-710c-80ef-8f41-dd477971e89d" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Serviços aos Cidadãos</td><td id="uHmP" class="" style="width:239.66666666666666px">10</td></tr><tr id="41063faa-710c-8000-9561-f08845683ee1" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Tecnologia</td><td id="uHmP" class="" style="width:239.66666666666666px">03</td></tr><tr id="41063faa-710c-80fc-8deb-c99b799982af" dir="ltr"><td id="]_@y" class="" style="width:239.66666666666666px">Turismo</td><td id="uHmP" class="" style="width:239.66666666666666px">09</td></tr></tbody></table><h1 id="41063faa-710c-807c-a6f7-dfdcb6abe496" class="block-color-orange" data-notion-highlight="orange" dir="auto">Os metadados </h1><p id="41063faa-710c-80d4-9bd8-d354ecd5a49a" class="" dir="auto">Na tabela das camadas, há para cada registro um botão à esquerda que nos leva à respectiva página de metadados. </p><p id="41063faa-710c-8076-861b-e1e009348af1" class="" dir="auto">Segue um exemplo dentro do tema “Cultura e Lazer”: </p><figure id="41063faa-710c-8019-b0bd-f3ffc4aefba2" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%203.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%203.png"><img style="width:1200px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%203.png"/></a></figure><p id="41063faa-710c-8081-b322-e5197f47a234" class="" dir="auto">Abaixo, um print do alto da página de metadados da camada “Biblioteca”. Note que há várias opções de download dos metadados.</p><figure id="41063faa-710c-80f0-815a-ee7e5b938848" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%204.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%204.png"><img style="width:1200px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%204.png"/></a></figure><details id="41063faa-710c-8002-9f3d-dbb7446b3f1f" open="" class="toggle" dir="auto"><summary>Abaixo, o GeoJson dos metadados da camada “Biblioteca” baixado através de um script python. Já foi tratado para legibilidade, sem alterar o conteúdo. </summary><div class="indented"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js" integrity="sha512-QXFMVAusM85vUYDaNgcYeU3rzSlc+bTV4JvkfJhjxSHlQEo+ig53BtnGkvFTiNJh8D+wv6uWAQ2vJaVmxe8d3w==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="41063faa-710c-80d1-acdb-e2339519ab50" class="code code-wrap" data-notion-code-syntax="json"><code class="language-json" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;type&quot;: &quot;FeatureCollection&quot;,
+  &quot;features&quot;: [
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eb1&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            341199.9468,
+            7383710.6256838
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 38,
+        &quot;NOME&quot;: &quot;Biblioteca Vila Palmares&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA ARMANDO ROCHA, nº220&quot;,
+        &quot;BAIRRO&quot;: &quot;Vila Palmares&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-7789&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 12h e das 13h às 17h&quot;,
+        &quot;EMAIL&quot;: &quot;bibliotecavlpalmares@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico  e internet. \nVenha conhecer e usufruir do espaço.\nCurta nossa pagina no Facebook - Biblioteca Vila Palmares\nhttps://www.facebook.com/biblioteca.vilapalmares&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: &quot;https://www.facebook.com/biblioteca.vilapalmares&quot;,
+        &quot;COD_SETOR&quot;: &quot;17&quot;,
+        &quot;COD_QUADRA&quot;: &quot;181&quot;,
+        &quot;COD_LOTE&quot;: &quot;058&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eb0&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            343715.61442074,
+            7382917.83459
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 31,
+        &quot;NOME&quot;: &quot;Biblioteca Nair Lacerda&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;PRAÇA QUARTO CENTENÁRIO, s/nº&quot;,
+        &quot;BAIRRO&quot;: &quot;Centro&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 4433-0768&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 9h às 18h, e sábados, das 8h às 12h&quot;,
+        &quot;EMAIL&quot;: &quot;bnlacerda@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;Localizada no Centro Cívico de Santo André, a Biblioteca Nair Lacerda oferece espaços para leitura e pesquisa de livros, jornais e revistas e busca promover o enriquecimento cultural da comunidade pelo empréstimo de itens que compõem seu acervo de livros&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;03&quot;,
+        &quot;COD_QUADRA&quot;: &quot;162&quot;,
+        &quot;COD_LOTE&quot;: &quot;002&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eaf&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Point&quot;,
+        &quot;coordinates&quot;: [
+          343122.39026669,
+          7384708.7161741
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 44,
+        &quot;NOME&quot;: &quot;Biblioteca Integrada de Artes&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;AVENIDA INDUSTRIAL, nº1740&quot;,
+        &quot;BAIRRO&quot;: &quot;Jardim&quot;,
+        &quot;TELEFONE&quot;: &quot;4433-0760&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda: Fechada; Terça a Quinta: 10:00 às 19:00; Sexta: Fechada&quot;,
+        &quot;EMAIL&quot;: &quot;bibliotecas@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;Biblioteca especializada em Artes&quot;,
+        &quot;OBS&quot;: &quot;Caso haja necessidade de atendimento nos dias em que a unidade esta fechada, favor solicitar atendimento por email.&quot;,
+        &quot;SITE1&quot;: &quot;https://www.santoandre.sp.gov.br/pesquisa/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;03&quot;,
+        &quot;COD_QUADRA&quot;: &quot;170&quot;,
+        &quot;COD_LOTE&quot;: &quot;579&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eae&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            347267.36771043,
+            7384425.83752556
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 33,
+        &quot;NOME&quot;: &quot;Biblioteca Parque Erasmo&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA IPANEMA, nº253&quot;,
+        &quot;BAIRRO&quot;: &quot;Parque Erasmo Assunção&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-7958&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 17h&quot;,
+        &quot;EMAIL&quot;: &quot;bibliotecapqerasmo@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e vídeo. Realiza vários eventos culturais para todas as idades. Venha conhecer e usufruir do espaço&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;14&quot;,
+        &quot;COD_QUADRA&quot;: &quot;002&quot;,
+        &quot;COD_LOTE&quot;: &quot;001&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ead&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            347816.11199778,
+            7385429.31640764
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 34,
+        &quot;NOME&quot;: &quot;Biblioteca Santo Alberto&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA PETROGRADO, s/nº&quot;,
+        &quot;BAIRRO&quot;: &quot;Jardim Santo Alberto&quot;,
+        &quot;TELEFONE&quot;: null,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 17h&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e vídeo. Venha conhecer e usufruir do espaço.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;16&quot;,
+        &quot;COD_QUADRA&quot;: &quot;207&quot;,
+        &quot;COD_LOTE&quot;: &quot;046&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eac&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            346195.18201846,
+            7376855.28693231
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 25,
+        &quot;NOME&quot;: &quot;Biblioteca Cata Preta&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;ESTRADA CATA PRETA, nº810&quot;,
+        &quot;BAIRRO&quot;: &quot;Vila João Ramalho&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-7730&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 17h&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e internet. Venha conhecer e usufruir do espaço.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;11&quot;,
+        &quot;COD_QUADRA&quot;: &quot;319&quot;,
+        &quot;COD_LOTE&quot;: &quot;022&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eab&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            367576.91198448,
+            7369701.03413028
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 27,
+        &quot;NOME&quot;: &quot;Biblioteca de Paranapiacaba Ábia Ferreira Francisco&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;AVENIDA RODRIGUES ALVES, s/nº&quot;,
+        &quot;BAIRRO&quot;: &quot;Paranapiacaba&quot;,
+        &quot;TELEFONE&quot;: null,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 17h&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e Vídeos. Realiza vários eventos culturais para todas as idades. Venha conhecer e usufruir do espaço&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;25&quot;,
+        &quot;COD_QUADRA&quot;: &quot;193&quot;,
+        &quot;COD_LOTE&quot;: &quot;015&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1eaa&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            344591.64839738,
+            7382300.15565598
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 29,
+        &quot;NOME&quot;: &quot;Biblioteca do Museu de Santo André&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA SENADOR FLÁQUER, nº470&quot;,
+        &quot;BAIRRO&quot;: &quot;Centro&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 4436-3631&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 17h&quot;,
+        &quot;EMAIL&quot;: &quot;museu@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;A Biblioteca do Museu é especializada na história e memória de Santo André e do Grande ABC. Ali podem ser encontrados livros, trabalhos, teses, documentos, coleções de jornais, recortes de jornais e fotografias referentes às temáticas já apresentadas.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;05&quot;,
+        &quot;COD_QUADRA&quot;: &quot;031&quot;,
+        &quot;COD_LOTE&quot;: &quot;014&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ea9&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            343607.79703205,
+            7387474.64778756
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 39,
+        &quot;NOME&quot;: &quot;Biblioteca Vila Sá&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;AVENIDA NOVA IORQUE, s/nº&quot;,
+        &quot;BAIRRO&quot;: &quot;Vila Metalúrgica&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 4997-7557&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;8h às 13h e das 14h às 17h&quot;,
+        &quot;EMAIL&quot;: &quot;bibliotecavilasa@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;A Biblioteca de Vila Sá fica localizada no complexo do Cesa de Vila Sá. A biblioteca conta com um acervo de livros para pesquisa e empréstimo. Também acesso à internet.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;02&quot;,
+        &quot;COD_QUADRA&quot;: &quot;077&quot;,
+        &quot;COD_LOTE&quot;: &quot;069&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ea8&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            345076.1653147,
+            7384888.28636956
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 28,
+        &quot;NOME&quot;: &quot;Biblioteca Distrital Cecília Meireles&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;PRAÇA WALDEMAR SOARES, s/nº&quot;,
+        &quot;BAIRRO&quot;: &quot;Parque das Nações&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 4401-4533&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h30 às 17h30&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Inaugurada em 17 de dezembro de 1967, a Biblioteca Cecília Meireles oferece acervo de livros para empréstimo e pesquisa local e periódicos para consulta local. Conta também com programação diversificada de oficinas e palestras.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;06&quot;,
+        &quot;COD_QUADRA&quot;: &quot;061&quot;,
+        &quot;COD_LOTE&quot;: &quot;038&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ea7&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            346516.13163268,
+            7380960.33143005
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 36,
+        &quot;NOME&quot;: &quot;Biblioteca Vila Humaitá&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA GUERRA JUNQUEIRA, nº366&quot;,
+        &quot;BAIRRO&quot;: &quot;Vila Humaitá&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-7782&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 11h e das 12h às 17h&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e vídeo. Com vários eventos culturais para todas as idades.Venha conhecer e usufruir do espaço.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;07&quot;,
+        &quot;COD_QUADRA&quot;: &quot;067&quot;,
+        &quot;COD_LOTE&quot;: &quot;029&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ea6&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            344806.72587652,
+            7379210.23225783
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 37,
+        &quot;NOME&quot;: &quot;Biblioteca Vila Linda&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA CARIJÓS, nº2286&quot;,
+        &quot;BAIRRO&quot;: &quot;Jardim Alvorada&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-8021&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 12h e das 13h às 17h&quot;,
+        &quot;EMAIL&quot;: &quot;bibliotecavilalinda@santoandre.sp.gov.br&quot;,
+        &quot;DESCRICAO&quot;: &quot;O espaço é destinados a pesquisas, empréstimos de livros. para realizar leitura (livros, jornais, revistas). Há também atividades culturais como Despertar para a Leitura, contadores de histórias, entre outras.&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;21&quot;,
+        &quot;COD_QUADRA&quot;: &quot;029&quot;,
+        &quot;COD_LOTE&quot;: &quot;092&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;id&quot;: &quot;SIGA_CUL_BIBLIOTECA.fid-f45bc35_1a1a646ff5c_-1ea5&quot;,
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;MultiPoint&quot;,
+        &quot;coordinates&quot;: [
+          [
+            341971.58110604,
+            7380737.17436289
+          ]
+        ]
+      },
+      &quot;geometry_name&quot;: &quot;GEOMETRY&quot;,
+      &quot;properties&quot;: {
+        &quot;ID&quot;: 35,
+        &quot;NOME&quot;: &quot;Biblioteca Vila Floresta&quot;,
+        &quot;COMPLEMENTO_NOME&quot;: null,
+        &quot;ENDERECO&quot;: &quot;RUA PARINTINS, nº344&quot;,
+        &quot;BAIRRO&quot;: &quot;Jardim Bom Pastor&quot;,
+        &quot;TELEFONE&quot;: &quot;(11) 3356-7777&quot;,
+        &quot;FUNCIONAMENTO&quot;: &quot;Segunda à sexta-feira, das 8h às 12h e das 13h às 17h&quot;,
+        &quot;EMAIL&quot;: null,
+        &quot;DESCRICAO&quot;: &quot;Espaço agradável que disponibiliza informação em livro, periódico e internet. Com vários eventos culturais para todas as idades.Venha conhecer e usufruir do espaço. Curta nossa pagina no Facebook - Biblioteca Vila Floresta&quot;,
+        &quot;OBS&quot;: null,
+        &quot;SITE1&quot;: &quot;http://culturaz.santoandre.sp.gov.br/&quot;,
+        &quot;SITE2&quot;: null,
+        &quot;COD_SETOR&quot;: &quot;19&quot;,
+        &quot;COD_QUADRA&quot;: &quot;202&quot;,
+        &quot;COD_LOTE&quot;: &quot;115&quot;
+      }
+    }
+  ],
+  &quot;totalFeatures&quot;: 13,
+  &quot;numberMatched&quot;: 13,
+  &quot;numberReturned&quot;: 13,
+  &quot;timeStamp&quot;: &quot;2026-11-04T11:18:39.196Z&quot;,
+  &quot;crs&quot;: {
+    &quot;type&quot;: &quot;name&quot;,
+    &quot;properties&quot;: {
+      &quot;name&quot;: &quot;urn:ogc:def:crs:EPSG::31983&quot;
+    }
+  }
+}</code></pre></div></details><details id="41063faa-710c-80e4-a7da-cc998fee3261" open="" class="toggle" dir="auto"><summary>Abaixo, o conteúdo dos metadados da camada “Biblioteca” copiado e colado diretamente da página.</summary><div class="indented"><h2 id="41063faa-710c-80db-b161-e7a56f0b07b8" class="" dir="auto"><strong>Metadados</strong></h2><p id="41063faa-710c-80b1-91c3-d9a20e50e847" class="" dir="auto"><strong>Dados de Camada</strong></p><p id="41063faa-710c-8052-9a10-d96c9c3b3508" class="" dir="auto">O ícone de PDF disponibiliza a ficha de metadados da camada.</p><p id="41063faa-710c-8042-8cbd-c135f54cdc07" class="" dir="auto">Os ícones de Shapefile (SHP), Comma-separeted values (CSV), Keyhole Markup Languade (KML), JavaScript Object Notation com atributos espaciais (GeoJSON) e Drawing Exchange Format (DXF) - quando disponíveis - permitem o download das informações que são de responsabilidade da Prefeitura de Santo André.</p><p id="41063faa-710c-800d-b398-ce145e62ad0b" class="" dir="auto">Para ter acesso a informações de terceiros, solicitamos entrar em contato com os órgãos ou instituições responsáveis pelas mesmas (indicado nos metadados da camada).</p><p id="41063faa-710c-80b7-a868-cc7ca449fc23" class="" dir="auto"><strong>Tema - </strong>Cultura e Lazer</p><p id="41063faa-710c-8010-a19e-d1e9bd698184" class="" dir="auto"><strong>Camada - </strong>Biblioteca</p><p id="41063faa-710c-80d5-8dab-e23c3c147b8d" class="" dir="auto"><strong>IDENTIFICAÇÃO</strong></p><p id="41063faa-710c-805e-b501-d3441dd5911b" class="" dir="auto"><strong>Título:</strong> Bibliotecas do Território</p><p id="41063faa-710c-8088-97ce-e233a02dc912" class="" dir="auto"><strong>Data:</strong> 14/05/2020</p><p id="41063faa-710c-8012-97b4-fcd20261df2a" class="" dir="auto"><strong>Tipo de Data:</strong> Criação</p><p id="41063faa-710c-80b3-a8ec-e53615bd39f7" class="" dir="auto"><strong>Resumo:</strong> Relação de localização e dados das bibliotecas públicas municipais de Santo André. A camada é formada pelas tradicionais Biblioteca Nair Lacerda e Biblioteca Cecília Meireles, além de uma série de bibliotecas Ramais (instaladas em prédios da Secretaria de Educação) e as bibliotecas Temáticas (instaladas em variados equipamentos culturais da cidade). As bibliotecas são espaços de uso público destinado à mediação da leitura e literatura, pesquisa e lazer.</p><p id="41063faa-710c-8061-87a8-e297fe9577f5" class="" dir="auto"><strong>Responsável:</strong> Departamento de Projetos Especiais e Planejamento - Secretaria de Cultura</p><p id="41063faa-710c-80e2-b7d7-e3dad3a89395" class="" dir="auto"><strong>Status:</strong> Em Vigor</p><p id="41063faa-710c-80ba-8c27-fd9e0a08e85d" class="" dir="auto"><strong>PALAVRAS CHAVE</strong></p><p id="41063faa-710c-80ef-a7de-cf02ac7ac375" class="" dir="auto"><strong>Tipo de Palavra:</strong> Temática</p><p id="41063faa-710c-804c-99cc-f577880701a7" class="" dir="auto"><strong>Palavras Chaves:</strong> biblioteca; cultura; leitura; pesquisa; livros</p><p id="41063faa-710c-8023-9ad6-e9dd3e1e2aff" class="" dir="auto"><strong>IDENTIFICAÇÃO DO CDG</strong></p><p id="41063faa-710c-80ce-b4f5-c3b298aad3c8" class="" dir="auto"><strong>Tipo de Representação Espacial:</strong> Vetorial</p><p id="41063faa-710c-8090-a16d-cde98773fd55" class="" dir="auto"><strong>Escala Equivalente:</strong> 1:40.000</p><p id="41063faa-710c-80f7-bdca-f324526a2213" class="" dir="auto"><strong>Idioma:</strong> pt</p><p id="41063faa-710c-8072-b795-c28b40550515" class="" dir="auto"><strong>Norma de codificação de caracteres:</strong> utf8</p><p id="41063faa-710c-8088-ae73-cb78a405e994" class="" dir="auto"><strong>Categoria Temática:</strong> Cultura, Esportes e Lazer</p><p id="41063faa-710c-80e9-b1d2-e577c8f51f70" class="" dir="auto"><strong>EXTENSÃO GEOGRÁFICA - Retangulo Envolvente</strong></p><p id="41063faa-710c-8066-a34e-f35e59de3c98" class="" dir="auto"><strong>Latitude Limitrofe Norte:</strong> 7.388.571</p><p id="41063faa-710c-809a-bd6f-dea274ec916d" class="" dir="auto"><strong>Latitude Limitrofe Sul:</strong> 7.365.451</p><p id="41063faa-710c-8088-83b4-e4dc50a97403" class="" dir="auto"><strong>Longitude Limitrofe Leste:</strong> 369.724</p><p id="41063faa-710c-80a6-9e11-e2abaac9e1cb" class="" dir="auto"><strong>Longitude Limitrofe Oeste:</strong> 340.152</p><p id="41063faa-710c-80d7-8a5a-f3a507c091b6" class="" dir="auto"><strong>DECLARAÇÃO DE QUALIDADE</strong></p><p id="41063faa-710c-800a-896a-f80fc3c096e1" class="" dir="auto">O metadado foi construído por meio de planilhas geradas em excel a partir do banco de dados da Plataforma CulturAZ, onde constam informações sobre todas as bibliotecas do Município de Santo André.</p><p id="41063faa-710c-809b-a194-c7ae8e3b23b1" class="" dir="auto"><strong>MANUTENÇÃO</strong></p><p id="41063faa-710c-80db-b508-d571ea1a3ea4" class="" dir="auto"><strong>Frequência:</strong> Conforme Necessidade</p><p id="41063faa-710c-804e-8bdc-d77854de5039" class="" dir="auto"><strong>DISTRIBUIÇÃO</strong></p><p id="41063faa-710c-8020-85b8-f679971f605e" class="" dir="auto"><strong>Nome do Formato:</strong> Shapefile (SHP)</p><p id="41063faa-710c-802c-9e94-d7c96530f8a9" class="" dir="auto"><strong>Versão do Formato:</strong> NÃO SE APLICA</p><p id="41063faa-710c-8006-9eeb-ca9153115321" class="" dir="auto"><strong>Acesso Online - URL:</strong> https://siga.santoandre.sp.gov.br/</p><p id="41063faa-710c-808c-a217-dd1302a51531" class="" dir="auto"><strong>SISTEMA DE COORDENADA DE REFERÊNCIA</strong></p><p id="41063faa-710c-809c-aba1-da635b9bac56" class="" dir="auto"><strong>Projeção:</strong> UTM 23S</p><p id="41063faa-710c-80a2-95cc-db37abe096cd" class="" dir="auto"><strong>Elipsóide:</strong> GRS80</p><p id="41063faa-710c-8029-9c38-db4c4f3d466f" class="" dir="auto"><strong>Datum:</strong> SIRGAS 2000</p><p id="41063faa-710c-801d-8427-eaf3332c2b13" class="" dir="auto"><strong>Código Identificador:</strong> EPSG 31983</p><p id="41063faa-710c-804a-b0b8-e09a67a92443" class="" dir="auto"><strong>Designação da Norma e Perfil de Metadados:</strong> ISO 19115:2003/19139 - Perfil MGB</p><p id="41063faa-710c-808c-a66b-f1eb54c9ec7c" class="" dir="auto"><strong>Versão da Norma dos Metadados:</strong> 2003 (norma); 2009 (perfil)</p><p id="41063faa-710c-8009-ac79-dadbd176270e" class="" dir="auto"><strong>Data dos Metadados:</strong> 04/09/2020</p><p id="41063faa-710c-8026-af6c-cb39b7140681" class="" dir="auto"><strong>Identificador dos Metadados:</strong> 7ccf5a81-7af4-45bd-9784-d4a3c4e988d1</p></div></details><p id="41063faa-710c-8039-b777-ef932e72f9b2" class="" dir="auto">Um print de como o tema “Cultura e Lazer” aparece no menu “Temas” do mapa:</p><figure id="41063faa-710c-80e7-9f01-f0bc1e660e5b" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%205.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%205.png"><img style="width:864px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%205.png"/></a></figure><p id="41063faa-710c-80c5-b462-c6f6e1ff6c6d" class="" dir="auto">Quando clicamos em um dos ícones de biblioteca do mapa, aparece um pop-up com informações que parecem ser as mesmas presentes no GeoJSON baixado. No momento da redação deste documento, eu quis bater um print da Biblioteca Vila Palmares, por ser a primeira a aparecer no GeoJSON baixado. Mas não havia como eu saber <em>qual</em> dos ícones correspondia à biblioteca que eu queria. Isso me obrigou a ir clicando <em>em cada um dos ícones</em> até eu encontrar o que eu buscava.  </p><figure id="41063faa-710c-808b-9f2f-cbeb7ec0df3f" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%206.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%206.png"><img style="width:960px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%206.png"/></a></figure><figure id="41063faa-710c-80f7-9c05-ca8ee9ff59e9" class="image" data-notion-image="An%C3%A1lise%20do%20site%20do%20SIGA/image%207.png" dir="ltr"><a href="An%C3%A1lise%20do%20site%20do%20SIGA/image%207.png"><img style="width:1056px" src="An%C3%A1lise%20do%20site%20do%20SIGA/image%207.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
